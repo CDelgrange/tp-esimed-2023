@@ -27,7 +27,7 @@ node_modules
 - [ ] La commande précédente (`npm init -y`) a créé un fichier `package.json` dans votre projet. Modifiez-le pour ajouter ces 2 lignes dans la partie `"scripts"`:
 ```
     "start": "node index.js",
-    "start:dev": "nodemon index.js",",
+    "start:dev": "nodemon index.js",
 ```
 - [ ] De retour dans votre terminal, tapez les commandes suivantes:
   - [ ] `git add .`
