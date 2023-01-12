@@ -6,7 +6,7 @@
 - [ ] Modifiez votre fichier `index.js` et testez le bon fonctionnement avec le bout de code "**Hello World**" présent [dans la doc](https://expressjs.com/en/starter/hello-world.html)
 - [ ] Une fois l'étape précédente effectuée, inspirez-vous en pour la suite du TP. Vous pourrez ensuite supprimer ce bout de code "**Hello World**"
 
-### Chekpoint n°1
+### Checkpoint n°1
 
 - [ ] Créez une variable `users` qui servira à stocker les utilisateurs de votre application. Ceux-ci seront constitués des infos suivantes: `id`, `firstName`, `lastName`, `password` (l'`id` devra être un entier unique, auto généré et auto incrément)
 - [ ] Créez une route pour créer un `user`
@@ -16,7 +16,7 @@
 - [ ] Créez une route pour supprimer un `user`
 - [ ] Les routes créées doivent retourner le bon code HTTP et doivent utiliser le bon verbe HTTP
 
-### Chekpoint n°2
+### Checkpoint n°2
 
 - [ ] Créez un middleware qui permettra de logger chaque requête avec comme infos: Date, IP de l'appelant, durée de la requête, verbe + route HTTP
 - [ ] Créez un middleware qui permettra de catcher les erreurs de votre serveur web
