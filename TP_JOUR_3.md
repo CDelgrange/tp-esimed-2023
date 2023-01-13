@@ -33,3 +33,16 @@
 - [ ] Ensuite, créez une nouvelle variable d'environnement qui contiendra cette information (appelée admettons `JWT_EXPIRES_IN`) et servez vous en donc ensuite dans votre code. Dans des conditions réelles cela pourrait servir à dire: "En environnement de développement, je veux que mon JWT ait une durée de vie de 5 minutes pour vérifier son bon fonctionnement", alors que "En production, je veux qu'il ait une durée de vie de 24h, pour faire en sorte que l'utilisateur doive se reconnecter toutes les 24h"
 - [ ] Avant de pousser vos dernières modifications, vous remarquerez peut être que le fichier contenant les variables d'environnement sera poussé sur votre repository Git. Et vous voulez éviter cela. Faites donc en sorte que ça ne soit pas le cas
 - [ ] Si jamais, suite au TP d'hier, vous aviez poussé sur votre Git votre fichier physique de base de donnée, supprimez le sur votre repository (mais pas en local car vous continuerez de vous en servir). Pour trouver comment faire, vous pouvez chercher par exemple: "**git remove remote file**"
+
+### Checkpoint n°3
+
+- [ ] La dernière partie de ce TP concerna les rôles: Vous allez restreindre certains accès de votre application en fonction du rôle de l'utilisateur
+- [ ] Dans le model User, rajoutez une propriété `isAdmin` qui sera un booléen non nullable
+- [ ] Il faudra donc que l'API de création d'un utilisateur soit capable de recevoir dans son body cette nouvelle information pour l'insérer dans la table User en base de donnée
+- [ ] Ensuite, lors de l'authentification (`/auth/login`), vous allez récupérer cette information pour la stocker dans la partie `payload` du JWT que vous créez. La payload du JWT devra être sous la forme: `{ userId: string, firstName: string, permissions: string[] }` (`string[]` veut dire: "tableau de strings"). En fonction de si l'utilisateur est admin ou non, vous aurez: `permissions: ['admin']` ou `permissions: []`
+- [ ] Cherchez dans la doc de la lib `express-jwt` un endroit où on parle de "permissions"
+- [ ] Installez la lib des "permissions" correspondante, et utilisez là pour restreindre aux "admin" les routes de:
+  - Recherche d'utilisateur par son `firstName`
+  - Modification de l'utilisateur
+  - Suppression de l'utilisateur
+- [ ] Si jamais l'utilisateur n'est pas "admin" le serveur doit renvoyer une 403 "Forbidden", grâce au middleware de gestion des erreurs
