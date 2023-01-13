@@ -39,6 +39,11 @@ exports.initializeConfigMiddlewares = (app) => {
 
 exports.initializeErrorMiddlwares = (app) => {
   app.use((err, req, res, next) => {
+    if (err.code === 'permission_denied') {
+      res.status(403).send('Forbidden');
+      return;
+    }
+
     res.status(500).send(err.message);
   });
 }

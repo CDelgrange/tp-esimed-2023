@@ -3,12 +3,15 @@ const router = express.Router();
 const userRepository = require('../models/user-repository');
 const { validateBody } = require('./validation/route.validator');
 const { body } = require('express-validator');
+const guard = require('express-jwt-permissions')({
+  requestProperty: 'auth',
+});
 
 router.get('/', async (req, res) => {
   res.send(await userRepository.getUsers());
 });
 
-router.get('/:firstName', async (req, res) => {
+router.get('/:firstName', guard.check('admin'), async (req, res) => {
   const foundUser = await userRepository.getUserByFirstName(req.params.firstName);
 
   if (!foundUser) {
@@ -24,6 +27,7 @@ router.post(
   body('firstName').notEmpty(),
   body('lastName').notEmpty(),
   body('password').notEmpty().isLength({ min: 5 }),
+  body('isAdmin').isBoolean(),
   async (req, res) => {
     try {
       validateBody(req);
@@ -37,12 +41,12 @@ router.post(
   }
 );
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', guard.check('admin'), async (req, res) => {
   await userRepository.updateUser(req.params.id, req.body).catch((err) => res.status(500).send(err.message));
   res.status(204).end();
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', guard.check('admin'), async (req, res) => {
   await userRepository.deleteUser(req.params.id);
   res.status(204).end();
 });

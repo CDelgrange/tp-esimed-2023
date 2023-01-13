@@ -28,7 +28,7 @@ router.post(
       return;
     }
 
-    const token = generateAuthToken(user.id, user.firstName);
+    const token = generateAuthToken(user.id, user.firstName, user.isAdmin);
 
     res.json({ token });
   }
