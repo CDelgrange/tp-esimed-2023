@@ -5,7 +5,7 @@ exports.generateAuthToken = (userId, firstName, isAdmin) => {
 
   return sign(
     { userId, firstName, permissions },
-    'secret_password',
-    { expiresIn: '1h' },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_ON },
   );
 };
