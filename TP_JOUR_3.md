@@ -23,3 +23,12 @@
 - [ ] Rajoutez les règles de validation suivantes pour les routes de création d'un utilisateur et d'authentification:
   - [ ] `POST /users/login` => le body de la request doit vérifier la présence des champs `firstName` et `password`
   - [ ] `POST /users` => le body de la request doit vérifier la présence des champs `firstName`, `lastName`, et `password`. Et ce dernier, doit avoir une taille minimum de 5 caractères
+
+### Checkpoint n°2
+
+- [ ] Pour éviter de stocker le mot de passe d'encryptage du JWT en dur dans le code (et donc qu'il se retrouve poussé malencontreusement sur Git), vous allez utiliser le mécanisme des variables d'environnement
+- [ ] Installez la librairie `dotenv`
+- [ ] Recherchez à travers la doc comment vous en servir pour faire en sorte que le `secret` utilisé pour encrypter le JWT soit récupéré depuis une variable d'environnement que vous aurez défini (nommée par exemple: `JWT_SECRET`)
+- [ ] Grâce à la lib `jsonwebtoken`, au moment où vous créez le token, faites en sorte qu'il expire au bout d'une heure
+- [ ] Ensuite, créez une nouvelle variable d'environnement qui contiendra cette information (appelée admettons `JWT_EXPIRES_IN`) et servez vous en donc ensuite dans votre code. Dans des conditions réelles cela pourrait servir à dire: "En environnement de développement, je veux que mon JWT ait une durée de vie de 5 minutes pour vérifier son bon fonctionnement", alors que "En production, je veux qu'il ait une durée de vie de 24h, pour faire en sorte que l'utilisateur doive se reconnecter toutes les 24h"
+- [ ] Avant de pousser vos dernières modifications, vous remarquerez peut être que le fichier contenant les variables d'environnement sera poussé sur votre repository Git. Et vous voulez éviter cela. Faites donc en sorte que ça ne soit pas le cas
