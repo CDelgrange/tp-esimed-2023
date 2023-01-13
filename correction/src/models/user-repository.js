@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const md5 = require('md5');
+const { generateHashedPassword } = require('../security/crypto');
 const User = require('./user.model');
 
 exports.getUsers = async () => await User.findAll();
@@ -9,7 +9,7 @@ exports.getUserByFirstName = async (firstName) => {
 };
 
 exports.createUser = async (body) => {
-  const hashedPassword = md5(body.password);
+  const hashedPassword = generateHashedPassword(body.password);
   const user = body;
   user.id = uuid.v4();
   user.password = hashedPassword;
@@ -27,7 +27,7 @@ exports.updateUser = async (id, data) => {
   await User.update({
     firstName: data.firstName || foundUser.firstName,
     lastName: data.lastName || foundUser.lastName,
-    password: data.password ? md5(data.password) : foundUser.password,
+    password: data.password ? generateHashedPassword(data.password) : foundUser.password,
   }, { where: { id } });
 };
 

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userRepository = require('../models/user-repository');
+const { validateBody } = require('./validation/route.validator');
+const { body } = require('express-validator');
 
 router.get('/', async (req, res) => {
   res.send(await userRepository.getUsers());
@@ -17,10 +19,23 @@ router.get('/:firstName', async (req, res) => {
   res.send(foundUser);
 });
 
-router.post('/', async (req, res) => {
-  await userRepository.createUser(req.body);
-  res.status(201).end();
-});
+router.post(
+  '/',
+  body('firstName').notEmpty(),
+  body('lastName').notEmpty(),
+  body('password').notEmpty().isLength({ min: 5 }),
+  async (req, res) => {
+    try {
+      validateBody(req);
+    } catch (e) {
+      res.status(500).send(e.message);
+      return;
+    }
+
+    await userRepository.createUser(req.body);
+    res.status(201).end();
+  }
+);
 
 router.put('/:id', async (req, res) => {
   await userRepository.updateUser(req.params.id, req.body).catch((err) => res.status(500).send(err.message));
