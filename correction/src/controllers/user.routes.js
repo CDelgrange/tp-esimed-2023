@@ -38,7 +38,7 @@ router.post(
 
     await userRepository.createUser(req.body);
     res.status(201).end();
-  }
+  },
 );
 
 router.put('/:id', guard.check('admin'), async (req, res) => {

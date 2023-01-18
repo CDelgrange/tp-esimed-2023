@@ -24,13 +24,16 @@ exports.updateUser = async (id, data) => {
     throw new Error('User not found');
   }
 
-  await User.update({
-    firstName: data.firstName || foundUser.firstName,
-    lastName: data.lastName || foundUser.lastName,
-    password: data.password ? generateHashedPassword(data.password) : foundUser.password,
-  }, { where: { id } });
+  await User.update(
+    {
+      firstName: data.firstName || foundUser.firstName,
+      lastName: data.lastName || foundUser.lastName,
+      password: data.password ? generateHashedPassword(data.password) : foundUser.password,
+    },
+    { where: { id } },
+  );
 };
 
 exports.deleteUser = async (id) => {
   await User.destroy({ where: { id } });
-}
+};

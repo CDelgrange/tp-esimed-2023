@@ -14,4 +14,4 @@ module.exports = async () => {
     password: '$2a$12$fN90KmxobuGypSm.apeA5.S8eqvAXk40JZ0DKVIX1cBRQlYqfbu6.', // "password"
     isAdmin: true,
   });
-}
+};

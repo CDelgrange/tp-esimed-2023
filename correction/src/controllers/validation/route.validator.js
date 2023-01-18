@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const formatBodyErrMessage = (valResult) => {
-  const [ firstErr ] = valResult.array({ onlyFirstError: true });
+  const [firstErr] = valResult.array({ onlyFirstError: true });
 
   return `Property "req.body.${firstErr.param}": ${firstErr.msg}. Current value = ${firstErr.value}`;
 };

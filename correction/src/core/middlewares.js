@@ -21,13 +21,17 @@ const initLoggerMiddlware = (app) => {
       const requestDuration = `Duration: ${requestDurationMs}ms`;
 
       console.log(`[${requestDate}] - [${remoteIP}] - [${httpInfo}] - [${requestDuration}]`);
-    })
+    });
     next();
   });
 };
 
 const initJwtMiddleware = (app) => {
-  app.use(jwt({ secret: process.env.JWT_SECRET, algorithms: ['HS256'] }).unless({ path: ['/auth/login', { url: '/users', method: 'POST' }] }));
+  app.use(
+    jwt({ secret: process.env.JWT_SECRET, algorithms: ['HS256'] }).unless({
+      path: ['/auth/login', { url: '/users', method: 'POST' }],
+    }),
+  );
 };
 
 exports.initializeConfigMiddlewares = (app) => {
@@ -35,7 +39,7 @@ exports.initializeConfigMiddlewares = (app) => {
   initCorsMiddlware(app);
   initLoggerMiddlware(app);
   initJwtMiddleware(app);
-}
+};
 
 exports.initializeErrorMiddlwares = (app) => {
   app.use((err, req, res, next) => {
@@ -46,4 +50,4 @@ exports.initializeErrorMiddlwares = (app) => {
 
     res.status(500).send(err.message);
   });
-}
+};
