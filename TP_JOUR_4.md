@@ -74,3 +74,54 @@ test('Test node env', () => {
 |               | Request body avec les bonnes données pour créer un utilisateur                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Succès           |                                                                     |
 | Full scénario |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                  |                                                                     |
 |               | `POST /users` => Création d'un utilisateur dédié à cet enchainement de tests<br /> `POST /login` => Authentification avec l'utilisateur qui vient d'être créé, puis récupération du token pour les prochaines request<br /> `GET /users` => Vérification qu'il y a bien 2 utilisateurs<br /> `PUT /users/:id` => Modifiez le `lastName` de l'utilisateur créé<br /> `GET /users/:firstName` => Vérifiez que la donnée a bien été modifiée<br /> `DELETE /users/:id` => Supprimez l'utilisateur créé <br /> `GET /users` => Vérifiez que votre liste d'utilisateur est de nouveau égale à 1 |                  |                                                                     |
+
+### Checkpoint n°3
+
+- [ ] La dernière partie de ce TP concernera les règles de formatages de votre projet
+- [ ] Les deux librairies concernées sont `eslint` et `prettier`
+- [ ] Cherchez comment installer `eslint` avec la config `semistandard`
+  - [ ] Normalement, suite à cette commande, vous devriez obtenir un fichier `.eslintrc.js` qui contiendra:
+```javascript
+module.exports = {
+  extends: ['semistandard'],
+};
+```
+- [ ] Installez ensuite la dépendance de **dévelopement** `eslint-plugin-jest`
+- [ ] Modifiez le contenu de votre fichier `.eslintrc.js` comme suit:
+```javascript
+module.exports = {
+  extends: ['semistandard'],
+  rules: {
+    'space-before-function-paren': 0,
+    'comma-dangle': 0,
+  },
+  plugins: ['jest'],
+  env: {
+    'jest/globals': true,
+  },
+};
+```
+- [ ] Lancez eslint sur tous les fichiers de votre projet: `npx eslint .`
+- [ ] Réglez les problèmes relevés
+
+### Checkpoint n°4
+
+- [ ] Installez `prettier` en dépendance **developement**
+- [ ] Créez un fichier `.prettierrc` avec le contenu suivant:
+```json
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 120,
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": true,
+  "endOfLine": "auto"
+}
+```
+- [ ] Lancez `prettier` sur tous les fichiers de votre projet:
+  - [ ] D'abord un check: `npx prettier --check .`
+  - [ ] Grâce à la doc de la lib, cherchez à comprendre le contenu du fichier ci-dessus
+  - [ ] Ensuite, avant de l'appliquer à tout vos fichiers, observez le résultat de la commande sur un fichier seulement, admettons: `npx prettier --write src/core/middlewares.js`
+  - [ ] Enfin, vous pourrez lancer `prettier` sur tout le projet: `npx prettier --write .`
