@@ -29,7 +29,7 @@ const initLoggerMiddlware = (app) => {
 const initJwtMiddleware = (app) => {
   app.use(
     jwt({ secret: process.env.JWT_SECRET, algorithms: ['HS256'] }).unless({
-      path: ['/auth/login', { url: '/users', method: 'POST' }],
+      path: ['/auth/login', /\/assets*/, { url: '/users', method: 'POST' }],
     }),
   );
 };
